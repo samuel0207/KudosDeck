@@ -50,7 +50,7 @@ export default function TestimonialsSection() {
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-indigo-50 text-indigo-600">
+            <div className="p-2 rounded-xl bg-orange-50 text-orange-600">
               <Code2 className="w-5 h-5" />
             </div>
             <div>
@@ -75,7 +75,7 @@ export default function TestimonialsSection() {
           <button
             onClick={() => setActiveType('iframe')}
             className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-              activeType === 'iframe' ? 'bg-white text-indigo-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              activeType === 'iframe' ? 'bg-white text-orange-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             iFrame Universal
@@ -83,7 +83,7 @@ export default function TestimonialsSection() {
           <button
             onClick={() => setActiveType('script')}
             className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-              activeType === 'script' ? 'bg-white text-indigo-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              activeType === 'script' ? 'bg-white text-orange-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Script HTML
@@ -91,7 +91,7 @@ export default function TestimonialsSection() {
           <button
             onClick={() => setActiveType('react')}
             className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-              activeType === 'react' ? 'bg-white text-indigo-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+              activeType === 'react' ? 'bg-white text-orange-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             React / Next.js
@@ -105,7 +105,7 @@ export default function TestimonialsSection() {
           </div>
           <button
             onClick={handleCopy}
-            className="absolute top-2.5 right-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-all"
+            className="absolute top-2.5 right-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-all"
           >
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'Copiado!' : 'Copiar Código'}</span>

@@ -31,7 +31,7 @@ export const initialTestimonials = [
     role: "Tech Lead",
     company: "CloudCore",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    content: "A interface minimalista e a paleta Slate + Indigo combinaram perfeitamente com a identidade visual da nossa marca. Nossos clientes elogiaram até mesmo o formulário de envio!",
+    content: "A interface minimalista e a paleta Slate + Laranja combinaram perfeitamente com a identidade visual da nossa marca. Nossos clientes elogiaram até mesmo o formulário de envio!",
     rating: 5,
     status: "approved",
     createdAt: "2026-09-25T18:40:00Z",
@@ -112,7 +112,7 @@ export const initialFormConfig = {
   buttonText: "Enviar meu depoimento",
   thankYouMessage: "Muito obrigado por compartilhar sua história com a gente! 🎉",
   requireRating: true,
-  primaryColor: "#4f46e5",
+  primaryColor: "#ea580c",
   allowAvatarUpload: true,
   publicSlug: "kudosdeck-demo",
 };

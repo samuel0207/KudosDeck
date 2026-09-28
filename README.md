@@ -6,7 +6,7 @@
 
 ## 🎨 Identidade Visual & Design System
 
-- **Paleta Primária**: Indigo (`#4f46e5` / `indigo-600`) para ações e destaques.
+- **Paleta Primária**: Laranja simples e elegante (`#ea580c` / `orange-600`) para ações e destaques.
 - **Fundo**: Slate (`#f8fafc` / `slate-50`) com cards em branco puro e sombras suaves.
 - **Tipografia**: *Plus Jakarta Sans* e *Inter* via Google Fonts.
 - **Micro-interações**: Efeito de celebração com confetes (`canvas-confetti`), transições fluidas e sistema de feedback com Toasts flutuantes.
@@ -53,7 +53,7 @@
   - Distribuição dinâmica em colunas (1 coluna em dispositivos móveis, 2 ou 3 no desktop).
   - Cartões com tipografia limpa, aspas estilizadas em marca d'água, avatar, estrelas e data.
 - **Barra de Customização do Widget**:
-  - Alternador de Temas: **Claro** (Slate Modern), **Escuro** (Midnight Obsidian) e **Indigo Glow** (Vidro & Gradientes).
+  - Alternador de Temas: **Claro** (Slate Modern), **Escuro** (Midnight Obsidian) e **Orange Glow** (Vidro & Gradientes).
   - Seletor de Colunas (2, 3 ou 4 colunas).
   - Toggles para ocultar/exibir estrelas, selos de verificação e datas.
 - **Modal de Incorporação (Embed Code)**:

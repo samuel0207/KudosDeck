@@ -6,7 +6,7 @@ export const triggerConfetti = () => {
       particleCount: 55,
       spread: 70,
       origin: { y: 0.7 },
-      colors: ['#4f46e5', '#6366f1', '#10b981', '#f59e0b', '#ec4899'],
+      colors: ['#ea580c', '#f97316', '#fb923c', '#10b981', '#f59e0b'],
       disableForReducedMotion: true,
     });
   } catch (err) {
@@ -17,7 +17,7 @@ export const triggerConfetti = () => {
 export const triggerSuperConfetti = () => {
   try {
     const end = Date.now() + 1.2 * 1000;
-    const colors = ['#4f46e5', '#818cf8', '#34d399', '#fbbf24'];
+    const colors = ['#ea580c', '#f97316', '#fb923c', '#34d399'];
 
     (function frame() {
       confetti({

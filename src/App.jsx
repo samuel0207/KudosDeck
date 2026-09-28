@@ -192,7 +192,7 @@ export default function App() {
       <footer className="border-t border-slate-200/80 bg-white py-6 mt-12 text-slate-500 text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-md bg-indigo-600 flex items-center justify-center text-white text-[10px] font-bold">
+            <div className="w-5 h-5 rounded-md bg-orange-600 flex items-center justify-center text-white text-[10px] font-bold">
               K
             </div>
             <span className="font-bold text-slate-700">KudosDeck</span>
@@ -209,7 +209,7 @@ export default function App() {
               <span>Restaurar Demonstração</span>
             </button>
             <span className="text-slate-300">•</span>
-            <span className="text-slate-400">Paleta Indigo & Slate</span>
+            <span className="text-slate-400">Paleta Laranja & Slate</span>
           </div>
         </div>
       </footer>

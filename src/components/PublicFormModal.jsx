@@ -26,7 +26,7 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
       name: name.trim(),
       role: role.trim() || "Cliente",
       company: company.trim() || formConfig.brandName,
-      avatar: avatar.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4f46e5&color=fff`,
+      avatar: avatar.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ea580c&color=fff`,
       content: content.trim(),
       rating,
       status: "pending", // enters as pending
@@ -106,14 +106,14 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
               <div className="mt-8 flex justify-center gap-3">
                 <button
                   onClick={handleReset}
-                  className="px-4 py-2 bg-indigo-50 text-indigo-700 font-semibold text-xs rounded-xl hover:bg-indigo-100 transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 bg-orange-50 text-orange-700 font-semibold text-xs rounded-xl hover:bg-orange-100 transition-colors flex items-center gap-1.5"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   Enviar outro depoimento
                 </button>
                 <button
                   onClick={onClose}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs rounded-xl transition-all"
+                  className="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs rounded-xl transition-all"
                 >
                   Voltar ao Painel
                 </button>
@@ -123,10 +123,10 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
             <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-md max-w-lg mx-auto">
               {/* Header */}
               <div className="text-center mb-6">
-                <div className="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-md shadow-indigo-600/30">
+                <div className="w-12 h-12 bg-orange-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-md shadow-orange-600/25">
                   <HeartHandshake className="w-6 h-6" />
                 </div>
-                <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">
+                <span className="text-xs font-bold text-orange-600 uppercase tracking-wider">
                   {formConfig.brandName}
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1 font-['Plus_Jakarta_Sans']">
@@ -177,7 +177,7 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ex: Roberto Silva"
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
                   />
                 </div>
 
@@ -192,7 +192,7 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
                       value={role}
                       onChange={(e) => setRole(e.target.value)}
                       placeholder="Ex: Gerente de TI"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
                     />
                   </div>
                   <div>
@@ -204,7 +204,7 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
                       value={company}
                       onChange={(e) => setCompany(e.target.value)}
                       placeholder="Ex: Tech Corp"
-                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                      className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
                     />
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
                       value={avatar}
                       onChange={(e) => setAvatar(e.target.value)}
                       placeholder="https://..."
-                      className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-mono"
+                      className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 font-mono"
                     />
                   </div>
                 )}
@@ -236,14 +236,14 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Conte como foi sua experiência..."
-                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none leading-relaxed"
+                    className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 resize-none leading-relaxed"
                   />
                 </div>
 
                 {/* Submit button */}
                 <button
                   type="submit"
-                  className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-md shadow-indigo-600/25 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold text-sm rounded-xl shadow-md shadow-orange-600/25 transition-all flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
                   <span>{formConfig.buttonText}</span>

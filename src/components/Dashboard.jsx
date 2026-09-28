@@ -85,7 +85,7 @@ export default function Dashboard({
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
               Total de Provas
             </span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
               <MessageSquare className="w-4 h-4" />
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function Dashboard({
                 placeholder="Buscar por cliente, empresa ou texto..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
               />
               {searchQuery && (
                 <button
@@ -256,7 +256,7 @@ export default function Dashboard({
 
         {filteredTestimonials.length === 0 ? (
           <div className="bg-white rounded-3xl p-12 text-center border border-slate-200/80 shadow-xs max-w-xl mx-auto my-8">
-            <div className="w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 rounded-2xl bg-orange-50 text-orange-500 flex items-center justify-center mx-auto mb-4">
               <MessageSquare className="w-8 h-8" />
             </div>
             <h3 className="text-base font-bold text-slate-900">
@@ -278,7 +278,7 @@ export default function Dashboard({
               )}
               <button
                 onClick={onOpenNewModal}
-                className="px-4 py-2 text-xs font-semibold bg-indigo-600 text-white hover:bg-indigo-700 rounded-xl shadow-xs"
+                className="px-4 py-2 text-xs font-semibold bg-orange-600 text-white hover:bg-orange-700 rounded-xl shadow-xs"
               >
                 + Adicionar Depoimento
               </button>
@@ -305,11 +305,11 @@ export default function Dashboard({
                       {/* Avatar & Details */}
                       <div className="flex items-center gap-3">
                         <img 
-                          src={item.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=4f46e5&color=fff`} 
+                          src={item.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=ea580c&color=fff`} 
                           alt={item.name}
                           className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100 shadow-xs shrink-0"
                           onError={(e) => {
-                            e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=4f46e5&color=fff`;
+                            e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=ea580c&color=fff`;
                           }}
                         />
                         <div>
@@ -318,7 +318,7 @@ export default function Dashboard({
                               {item.name}
                             </h4>
                             {item.verified && (
-                              <ShieldCheck className="w-4 h-4 text-indigo-600 shrink-0" title="Cliente Verificado" />
+                              <ShieldCheck className="w-4 h-4 text-orange-600 shrink-0" title="Cliente Verificado" />
                             )}
                           </div>
                           <p className="text-xs text-slate-500 font-medium">
@@ -362,7 +362,7 @@ export default function Dashboard({
                     </div>
 
                     {/* Testimonial Quote Text */}
-                    <blockquote className="text-sm text-slate-700 leading-relaxed italic relative pl-3 border-l-2 border-indigo-200 my-3">
+                    <blockquote className="text-sm text-slate-700 leading-relaxed italic relative pl-3 border-l-2 border-orange-200 my-3">
                       "{item.content}"
                     </blockquote>
                   </div>
@@ -387,8 +387,8 @@ export default function Dashboard({
                         <button
                           type="button"
                           onClick={() => handleToggle(item.id, item.status)}
-                          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500/20 ${
-                            isApproved ? 'bg-indigo-600' : 'bg-slate-200'
+                          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${
+                            isApproved ? 'bg-orange-600' : 'bg-slate-200'
                           }`}
                           role="switch"
                           aria-checked={isApproved}

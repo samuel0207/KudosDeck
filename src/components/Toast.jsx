@@ -7,7 +7,7 @@ export default function Toast({ toast, onClose }) {
   const icons = {
     success: <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />,
     error: <AlertCircle className="w-5 h-5 text-rose-500 shrink-0" />,
-    info: <Info className="w-5 h-5 text-indigo-500 shrink-0" />
+    info: <Info className="w-5 h-5 text-orange-500 shrink-0" />
   };
 
   return (

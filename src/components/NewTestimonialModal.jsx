@@ -31,7 +31,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
       name: name.trim(),
       role: role.trim() || "Cliente",
       company: company.trim() || "",
-      avatar: avatar.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4f46e5&color=fff`,
+      avatar: avatar.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=ea580c&color=fff`,
       content: content.trim(),
       rating,
       status,
@@ -68,7 +68,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-indigo-50 text-indigo-600">
+            <div className="p-2 rounded-xl bg-orange-50 text-orange-600">
               <Plus className="w-5 h-5" />
             </div>
             <div>
@@ -119,7 +119,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Ex: Fernanda Lima"
-              className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+              className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
             />
           </div>
 
@@ -134,7 +134,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
                 placeholder="Ex: Diretora de TI"
-                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
               />
             </div>
             <div>
@@ -146,7 +146,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="Ex: Veloce Corp"
-                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
               />
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
               value={avatar}
               onChange={(e) => setAvatar(e.target.value)}
               placeholder="https://..."
-              className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 font-mono"
+              className="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 font-mono"
             />
             <div className="flex items-center gap-2 mt-2">
               {presets.map((p, i) => (
@@ -172,7 +172,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
                   type="button"
                   key={i}
                   onClick={() => setAvatar(p.url)}
-                  className="w-6 h-6 rounded-full overflow-hidden border border-slate-300 hover:ring-2 hover:ring-indigo-500"
+                  className="w-6 h-6 rounded-full overflow-hidden border border-slate-300 hover:ring-2 hover:ring-orange-500"
                   title={p.label}
                 >
                   <img src={p.url} alt={p.label} className="w-full h-full object-cover" />
@@ -192,7 +192,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Escreva as palavras do cliente..."
-              className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none leading-relaxed"
+              className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 resize-none leading-relaxed"
             />
           </div>
 
@@ -239,7 +239,7 @@ export default function NewTestimonialModal({ isOpen, onClose, onAdd, onShowToas
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-xs transition-all"
+              className="px-5 py-2 text-xs font-semibold bg-orange-600 hover:bg-orange-700 text-white rounded-xl shadow-xs transition-all"
             >
               Salvar Depoimento
             </button>
