@@ -12,7 +12,6 @@ import {
   Heart, 
   LayoutDashboard, 
   FileEdit, 
-  PlusCircle, 
   Code2, 
   RotateCcw, 
   Star, 
@@ -264,15 +263,6 @@ export default function App() {
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#18181b] bg-[#fef08a] text-[#18181b] shadow-[1px_1px_0px_#18181b]">
                   Público
                 </span>
-              </button>
-
-              {/* Coletar Depoimento Action */}
-              <button
-                onClick={() => setIsNewModalOpen(true)}
-                className="w-full px-4 py-2.5 text-[#18181b] hover:bg-[#ece6db] rounded-full flex items-center gap-3 transition-colors text-left"
-              >
-                <PlusCircle size={16} className="stroke-[2.2] text-[#f59e0b]" />
-                <span>+ Coletar</span>
               </button>
 
               {/* Incorporar Widget Action */}
