@@ -5,13 +5,10 @@ import {
   Trash2, 
   Search, 
   Star, 
-  Check, 
-  X, 
   MessageSquare, 
-  ShieldCheck, 
-  Calendar
+  Plus
 } from 'lucide-react';
-import { triggerConfetti } from '../utils/confetti';
+import confetti from 'canvas-confetti';
 
 export default function Dashboard({ 
   testimonials, 
@@ -59,7 +56,12 @@ export default function Dashboard({
 
   const handleToggle = (id, currentStatus) => {
     if (currentStatus === 'pending') {
-      triggerConfetti();
+      confetti({
+        particleCount: 70,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#10b981', '#fbbf24', '#f43f5e']
+      });
     }
     onToggleStatus(id);
   };
@@ -75,87 +77,89 @@ export default function Dashboard({
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
+    <div className="space-y-6 animate-in fade-in duration-200">
       
-      {/* SaaS Metric Cards Header */}
-      <section className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Total Metric */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+      {/* Neo-brutalist SaaS Metric Cards */}
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+        {/* Total Metric (Pastel Yellow) */}
+        <div className="bg-[#fef08a] rounded-2xl p-4 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-              Total de Provas
+            <span className="text-[11px] font-bold text-[#18181b] uppercase tracking-wider">
+              Total Depoimentos
             </span>
-            <div className="w-8 h-8 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
-              <MessageSquare className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-full bg-white border border-[#18181b] flex items-center justify-center">
+              <MessageSquare className="w-3.5 h-3.5 text-[#18181b]" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            <span className="text-2xl sm:text-3xl font-black text-[#18181b] font-retro">
               {stats.total}
             </span>
-            <span className="text-xs font-medium text-slate-500">depoimentos</span>
+            <span className="text-xs font-semibold text-stone-700">coletados</span>
           </div>
         </div>
 
-        {/* Approved Metric */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+        {/* Approved Metric (Pastel Mint) */}
+        <div className="bg-[#a7f3d0] rounded-2xl p-4 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
+            <span className="text-[11px] font-bold text-[#065f46] uppercase tracking-wider">
               Aprovados no Mural
             </span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-full bg-white border border-[#18181b] flex items-center justify-center">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#065f46]" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            <span className="text-2xl sm:text-3xl font-black text-[#18181b] font-retro">
               {stats.approved}
             </span>
-            <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+            <span className="text-[11px] font-bold text-[#065f46] bg-white/70 px-2 py-0.5 rounded-full border border-[#18181b]">
               {stats.total > 0 ? Math.round((stats.approved / stats.total) * 100) : 0}% ativos
             </span>
           </div>
         </div>
 
-        {/* Pending Metric */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+        {/* Pending Metric (Pastel Pink) */}
+        <div className="bg-[#fbcfe8] rounded-2xl p-4 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-amber-600 uppercase tracking-wider">
-              Pendentes de Análise
+            <span className="text-[11px] font-bold text-[#831843] uppercase tracking-wider">
+              Pendentes Moderação
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
-              <Clock className="w-4 h-4" />
+            <div className="w-7 h-7 rounded-full bg-white border border-[#18181b] flex items-center justify-center">
+              <Clock className="w-3.5 h-3.5 text-[#831843]" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            <span className="text-2xl sm:text-3xl font-black text-[#18181b] font-retro">
               {stats.pending}
             </span>
-            {stats.pending > 0 && (
-              <span className="text-xs font-medium text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full">
+            {stats.pending > 0 ? (
+              <span className="text-[11px] font-bold text-[#831843] bg-white/80 px-2 py-0.5 rounded-full border border-[#18181b] animate-pulse">
                 aguardando
               </span>
+            ) : (
+              <span className="text-[11px] font-medium text-stone-600">em dia</span>
             )}
           </div>
         </div>
 
-        {/* Rating Metric */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+        {/* Rating Metric (Pastel Blue) */}
+        <div className="bg-[#bae6fd] rounded-2xl p-4 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <span className="text-[11px] font-bold text-[#075985] uppercase tracking-wider">
               Média de Avaliação
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <div className="w-7 h-7 rounded-full bg-white border border-[#18181b] flex items-center justify-center">
+              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            <span className="text-2xl sm:text-3xl font-black text-[#18181b] font-retro">
               {stats.avgRating}
             </span>
-            <div className="flex items-center text-amber-400">
+            <div className="flex items-center text-amber-500">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3 h-3 fill-amber-400" />
+                <Star key={i} className="w-3 h-3 fill-amber-400 stroke-[#18181b]" />
               ))}
             </div>
           </div>
@@ -163,286 +167,215 @@ export default function Dashboard({
       </section>
 
       {/* Control Bar: Filters, Search, Batch Actions */}
-      <section className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          
-          {/* Status Tabs */}
-          <div className="flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-xl self-start md:self-auto overflow-x-auto w-full md:w-auto">
-            <button
-              onClick={() => setStatusFilter('all')}
-              className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
-                statusFilter === 'all'
-                  ? 'bg-white text-slate-900 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              Todos ({stats.total})
-            </button>
-            <button
-              onClick={() => setStatusFilter('approved')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
-                statusFilter === 'approved'
-                  ? 'bg-white text-emerald-700 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-              Aprovados ({stats.approved})
-            </button>
-            <button
-              onClick={() => setStatusFilter('pending')}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
-                statusFilter === 'pending'
-                  ? 'bg-white text-amber-700 shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              <Clock className="w-3.5 h-3.5 text-amber-500" />
-              Pendentes ({stats.pending})
-            </button>
+      <section className="bg-white rounded-2xl p-4 sm:p-5 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col gap-3.5">
+        {/* Top Row: Search Input & Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          {/* Search Input in Retro Pill */}
+          <div className="relative flex-1 max-w-md">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar por cliente, empresa ou cargo..."
+              className="w-full border-[1.5px] border-[#18181b] bg-[#faf6ed] rounded-full pl-4 pr-9 py-2 text-xs font-medium text-[#18181b] shadow-[1.5px_1.5px_0px_#18181b] outline-none placeholder:text-stone-400 focus:bg-white transition-colors"
+            />
+            <Search
+              size={14}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-500 pointer-events-none"
+            />
           </div>
 
-          {/* Search Input & Action */}
-          <div className="flex flex-col sm:flex-row items-center gap-3">
-            <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                placeholder="Buscar por cliente, empresa ou texto..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
-
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2.5 shrink-0 self-end sm:self-center">
             {stats.pending > 0 && (
               <button
-                onClick={() => {
-                  onApproveAll();
-                  triggerConfetti();
-                }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-xl transition-all"
+                onClick={onApproveAll}
+                className="px-3.5 py-1.5 bg-[#a7f3d0] hover:bg-[#6ee7b7] text-[#065f46] rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[1.5px_1.5px_0px_#18181b] whitespace-nowrap active:translate-y-0.5 transition-all"
               >
-                <Check className="w-3.5 h-3.5" />
                 Aprovar Todos ({stats.pending})
               </button>
             )}
-          </div>
 
+            <button
+              onClick={onOpenNewModal}
+              className="px-4 py-1.5 bg-[#fde047] hover:bg-[#facc15] text-[#18181b] rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[1.5px_1.5px_0px_#18181b] flex items-center gap-1.5 whitespace-nowrap active:translate-y-0.5 transition-all"
+            >
+              <Plus size={14} className="stroke-[2.5]" />
+              <span>Coletar</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Bottom Row: Status Filter Chips with No Overflow Scrollbar */}
+        <div className="flex items-center gap-2 pt-2.5 border-t border-stone-200 flex-wrap text-xs">
+          <span className="text-[10px] font-bold text-stone-500 uppercase tracking-wider mr-1">
+            Status:
+          </span>
+
+          <button
+            onClick={() => setStatusFilter('all')}
+            className={`px-3.5 py-1.5 rounded-full font-bold border-[1.5px] border-[#18181b] transition-all shadow-[1.5px_1.5px_0px_#18181b] ${
+              statusFilter === 'all'
+                ? 'bg-[#fef08a] translate-y-0.5 shadow-none'
+                : 'bg-[#faf6ed] hover:-translate-y-0.5 text-stone-700'
+            }`}
+          >
+            Todos ({stats.total})
+          </button>
+
+          <button
+            onClick={() => setStatusFilter('approved')}
+            className={`px-3.5 py-1.5 rounded-full font-bold border-[1.5px] border-[#18181b] transition-all shadow-[1.5px_1.5px_0px_#18181b] flex items-center gap-1.5 ${
+              statusFilter === 'approved'
+                ? 'bg-[#a7f3d0] translate-y-0.5 shadow-none text-[#065f46]'
+                : 'bg-[#faf6ed] hover:-translate-y-0.5 text-stone-700'
+            }`}
+          >
+            <CheckCircle2 size={13} />
+            <span>Aprovados ({stats.approved})</span>
+          </button>
+
+          <button
+            onClick={() => setStatusFilter('pending')}
+            className={`px-3.5 py-1.5 rounded-full font-bold border-[1.5px] border-[#18181b] transition-all shadow-[1.5px_1.5px_0px_#18181b] flex items-center gap-1.5 ${
+              statusFilter === 'pending'
+                ? 'bg-[#fbcfe8] translate-y-0.5 shadow-none text-[#831843]'
+                : 'bg-[#faf6ed] hover:-translate-y-0.5 text-stone-700'
+            }`}
+          >
+            <Clock size={13} />
+            <span>Pendentes ({stats.pending})</span>
+          </button>
+
+          {/* Quick Clear Search if filled */}
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="ml-auto text-[11px] font-bold text-stone-500 underline hover:text-[#18181b]"
+            >
+              Limpar busca
+            </button>
+          )}
         </div>
       </section>
 
-      {/* Testimonials List Grid */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between px-1">
-          <h2 className="text-lg font-bold text-slate-900 tracking-tight font-['Plus_Jakarta_Sans'] flex items-center gap-2">
-            Depoimentos Recebidos
-            <span className="text-xs font-medium text-slate-500 px-2 py-0.5 rounded-full bg-slate-200/70">
-              {filteredTestimonials.length} exibidos
-            </span>
-          </h2>
-          <span className="text-xs text-slate-400">
-            Dica: Alterne o switch para exibir no Wall of Love
-          </span>
-        </div>
-
+      {/* Testimonials List */}
+      <section className="space-y-3">
         {filteredTestimonials.length === 0 ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-slate-200/80 shadow-xs max-w-xl mx-auto my-8">
-            <div className="w-16 h-16 rounded-2xl bg-orange-50 text-orange-500 flex items-center justify-center mx-auto mb-4">
-              <MessageSquare className="w-8 h-8" />
-            </div>
-            <h3 className="text-base font-bold text-slate-900">
-              Nenhum depoimento encontrado
-            </h3>
-            <p className="text-sm text-slate-500 mt-1 max-w-md mx-auto">
-              {searchQuery 
-                ? `Nenhum resultado corresponde à busca "${searchQuery}". Tente limpar o filtro de busca.`
-                : 'Não há depoimentos nesta categoria no momento. Que tal cadastrar um novo para testar?'}
+          <div className="bg-white rounded-2xl p-10 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] text-center max-w-md mx-auto">
+            <MessageSquare size={36} className="mx-auto text-stone-400 mb-2" />
+            <h4 className="font-retro font-bold text-base text-[#18181b]">Nenhum depoimento encontrado</h4>
+            <p className="text-xs text-stone-600 mt-1">
+              Tente mudar os filtros de busca ou adicione um novo depoimento.
             </p>
-            <div className="mt-6 flex justify-center gap-3">
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="px-4 py-2 text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl"
-                >
-                  Limpar Busca
-                </button>
-              )}
-              <button
-                onClick={onOpenNewModal}
-                className="px-4 py-2 text-xs font-semibold bg-orange-600 text-white hover:bg-orange-700 rounded-xl shadow-xs"
-              >
-                + Adicionar Depoimento
-              </button>
-            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-            {filteredTestimonials.map((item) => {
-              const isApproved = item.status === 'approved';
+          filteredTestimonials.map((item) => (
+            <div
+              key={item.id}
+              className="bg-white rounded-2xl p-4 border-[1.5px] border-[#18181b] shadow-[2.5px_2.5px_0px_#18181b] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:-translate-y-0.5 transition-transform"
+            >
+              {/* Left Client Info */}
+              <div className="flex items-start gap-3 flex-1 min-w-0">
+                <img
+                  src={item.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=fde047&color=18181b`}
+                  alt={item.name}
+                  className="w-10 h-10 rounded-full object-cover border-[1.5px] border-[#18181b] shrink-0"
+                />
 
-              return (
-                <div 
-                  key={item.id}
-                  className={`bg-white rounded-2xl p-5 sm:p-6 border transition-all duration-200 relative group flex flex-col justify-between ${
-                    isApproved 
-                      ? 'border-slate-200/90 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.09)]' 
-                      : 'border-amber-200/70 bg-amber-50/20 shadow-xs'
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <h5 className="font-retro font-bold text-sm text-[#18181b]">
+                      {item.name}
+                    </h5>
+                    {item.verified && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-[#18181b] bg-[#a7f3d0] text-[#065f46]">
+                        ✓ Verificado
+                      </span>
+                    )}
+                    <span className="text-[10px] text-stone-500 font-semibold ml-auto md:ml-0">
+                      {formatDate(item.createdAt)}
+                    </span>
+                  </div>
+
+                  <p className="text-[11px] text-stone-500 font-medium">
+                    {item.role} {item.company ? `• ${item.company}` : ''}
+                  </p>
+
+                  <div className="flex items-center gap-1 my-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-3 h-3 ${
+                          i < (item.rating || 5)
+                            ? 'text-amber-500 fill-amber-400'
+                            : 'text-stone-200'
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <p className="text-xs text-stone-700 font-medium leading-relaxed line-clamp-2">
+                    "{item.content}"
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Controls: Status Toggle & Delete */}
+              <div className="flex items-center gap-3 self-end md:self-center shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-stone-100 w-full md:w-auto justify-between md:justify-end">
+                {/* Status Toggle Button */}
+                <button
+                  onClick={() => handleToggle(item.id, item.status)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[1.5px_1.5px_0px_#18181b] flex items-center gap-1.5 transition-all ${
+                    item.status === 'approved'
+                      ? 'bg-[#a7f3d0] text-[#065f46] hover:bg-emerald-200'
+                      : 'bg-[#fef08a] text-[#854d0e] hover:bg-amber-200'
                   }`}
                 >
-                  {/* Card Header: Author info & Badges */}
-                  <div>
-                    <div className="flex items-start justify-between gap-3 mb-4">
-                      
-                      {/* Avatar & Details */}
-                      <div className="flex items-center gap-3">
-                        <img 
-                          src={item.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=ea580c&color=fff`} 
-                          alt={item.name}
-                          className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100 shadow-xs shrink-0"
-                          onError={(e) => {
-                            e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=ea580c&color=fff`;
-                          }}
-                        />
-                        <div>
-                          <div className="flex items-center gap-1.5">
-                            <h4 className="font-bold text-slate-900 text-sm sm:text-base leading-tight">
-                              {item.name}
-                            </h4>
-                            {item.verified && (
-                              <ShieldCheck className="w-4 h-4 text-orange-600 shrink-0" title="Cliente Verificado" />
-                            )}
-                          </div>
-                          <p className="text-xs text-slate-500 font-medium">
-                            {item.role} {item.company ? `• ${item.company}` : ''}
-                          </p>
-                        </div>
-                      </div>
+                  {item.status === 'approved' ? (
+                    <>
+                      <CheckCircle2 size={13} />
+                      <span>Aprovado</span>
+                    </>
+                  ) : (
+                    <>
+                      <Clock size={13} />
+                      <span>Aprovar</span>
+                    </>
+                  )}
+                </button>
 
-                      {/* Status Badge */}
-                      <div>
-                        {isApproved ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/70">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                            Aprovado
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/70">
-                            <Clock className="w-3.5 h-3.5 text-amber-500" />
-                            Pendente
-                          </span>
-                        )}
-                      </div>
-
-                    </div>
-
-                    {/* Star Rating */}
-                    <div className="flex items-center gap-1 mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`w-4 h-4 ${
-                            i < (item.rating || 5) 
-                              ? 'text-amber-400 fill-amber-400' 
-                              : 'text-slate-200 fill-slate-100'
-                          }`} 
-                        />
-                      ))}
-                      <span className="text-xs font-semibold text-slate-600 ml-1.5">
-                        {item.rating || 5}.0
-                      </span>
-                    </div>
-
-                    {/* Testimonial Quote Text */}
-                    <blockquote className="text-sm text-slate-700 leading-relaxed italic relative pl-3 border-l-2 border-orange-200 my-3">
-                      "{item.content}"
-                    </blockquote>
+                {/* Delete button with confirmation */}
+                {deleteConfirmId === item.id ? (
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => {
+                        onDelete(item.id);
+                        setDeleteConfirmId(null);
+                      }}
+                      className="px-2.5 py-1 bg-red-600 text-white rounded-full text-[11px] font-bold border border-[#18181b]"
+                    >
+                      Excluir?
+                    </button>
+                    <button
+                      onClick={() => setDeleteConfirmId(null)}
+                      className="px-2 py-1 bg-stone-200 text-[#18181b] rounded-full text-[11px] font-bold border border-[#18181b]"
+                    >
+                      X
+                    </button>
                   </div>
-
-                  {/* Card Footer: Metadata & Control Actions */}
-                  <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-2">
-                    
-                    {/* Date */}
-                    <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>{formatDate(item.createdAt)}</span>
-                    </div>
-
-                    {/* Action Controls: Approval Toggle & Delete */}
-                    <div className="flex items-center gap-3">
-                      
-                      {/* Approval Toggle Switch */}
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-slate-500 hidden sm:inline">
-                          {isApproved ? 'Publicado' : 'Aprovar'}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => handleToggle(item.id, item.status)}
-                          className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-orange-500/20 ${
-                            isApproved ? 'bg-orange-600' : 'bg-slate-200'
-                          }`}
-                          role="switch"
-                          aria-checked={isApproved}
-                          title={isApproved ? "Clique para reverter para Pendente" : "Clique para Aprovar e exibir no Mural"}
-                        >
-                          <span
-                            aria-hidden="true"
-                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
-                              isApproved ? 'translate-x-5' : 'translate-x-0'
-                            }`}
-                          />
-                        </button>
-                      </div>
-
-                      {/* Delete Button with Confirmation State */}
-                      {deleteConfirmId === item.id ? (
-                        <div className="flex items-center gap-1 bg-rose-50 px-2 py-1 rounded-lg border border-rose-200 animate-in fade-in">
-                          <span className="text-[11px] font-semibold text-rose-700">Deletar?</span>
-                          <button
-                            onClick={() => {
-                              onDelete(item.id);
-                              setDeleteConfirmId(null);
-                            }}
-                            className="p-1 text-rose-600 hover:text-rose-800"
-                            title="Confirmar exclusão"
-                          >
-                            <Check className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => setDeleteConfirmId(null)}
-                            className="p-1 text-slate-400 hover:text-slate-600"
-                            title="Cancelar"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => setDeleteConfirmId(item.id)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                          title="Excluir depoimento"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      )}
-
-                    </div>
-
-                  </div>
-
-                </div>
-              );
-            })}
-          </div>
+                ) : (
+                  <button
+                    onClick={() => setDeleteConfirmId(item.id)}
+                    className="w-8 h-8 rounded-full border border-[#18181b] bg-white flex items-center justify-center text-stone-500 hover:text-red-600 hover:border-red-600 transition-colors shadow-[1px_1px_0px_#18181b]"
+                    title="Excluir depoimento"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                )}
+              </div>
+            </div>
+          ))
         )}
       </section>
 

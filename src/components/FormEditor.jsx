@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import { 
-  Sparkles, 
   Send, 
   Star, 
-  User, 
-  Briefcase, 
-  Image as ImageIcon, 
   CheckCircle, 
   Copy, 
   Settings2, 
-  Eye, 
-  RefreshCw,
-  Sliders,
-  Check,
-  Globe
+  Sliders, 
+  Check, 
+  Globe 
 } from 'lucide-react';
-import { triggerConfetti } from '../utils/confetti';
+import confetti from 'canvas-confetti';
 
 export default function FormEditor({ 
   formConfig, 
@@ -62,21 +56,29 @@ export default function FormEditor({
       name: previewName.trim(),
       role: previewRole.trim() || "Cliente",
       company: previewCompany.trim() || formConfig.brandName,
-      avatar: previewAvatar.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(previewName)}&background=ea580c&color=fff`,
+      avatar: previewAvatar.trim() || `https://ui-avatars.com/api/?name=${encodeURIComponent(previewName)}&background=fde047&color=18181b`,
       content: previewContent.trim(),
       rating: previewRating,
       status: "pending", // enters as pending for approval
       createdAt: new Date().toISOString(),
       verified: true,
-      featured: false,
     });
 
-    triggerConfetti();
+    confetti({
+      particleCount: 75,
+      spread: 60,
+      origin: { y: 0.6 },
+      colors: ['#f59e0b', '#3b82f6', '#ec4899', '#10b981']
+    });
+
     setSubmittedSuccess(true);
-    onShowToast({ message: "Depoimento de teste enviado! Ele já aparece como 'Pendente' no seu Dashboard.", type: "success" });
+    onShowToast({ 
+      message: "Depoimento enviado no teste! Ele já aparece como 'Pendente' no Dashboard.", 
+      type: "success" 
+    });
   };
 
-  const handleResetTestForm = () => {
+  const handleResetPreview = () => {
     setPreviewName('');
     setPreviewRole('');
     setPreviewCompany('');
@@ -87,416 +89,324 @@ export default function FormEditor({
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
+    <div className="space-y-6 animate-in fade-in duration-200">
       
       {/* Header Info */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-5 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-orange-50 text-orange-600">
-              <Settings2 className="w-5 h-5" />
+            <span className="w-8 h-8 rounded-full bg-[#fef08a] border-[1.5px] border-[#18181b] flex items-center justify-center text-[#18181b] shadow-[1px_1px_0px_#18181b]">
+              <Settings2 className="w-4 h-4 stroke-[2.5]" />
             </span>
-            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight font-['Plus_Jakarta_Sans']">
+            <h1 className="text-xl sm:text-2xl font-black text-[#18181b] tracking-tight font-retro">
               Editor do Formulário de Coleta
             </h1>
           </div>
-          <p className="text-sm text-slate-500 mt-1 max-w-2xl">
-            Personalize a experiência de coleta de depoimentos. Teste o formulário diretamente no painel interativo à direita antes de compartilhar com seus clientes.
+          <p className="text-xs text-stone-600 font-medium mt-1 max-w-2xl">
+            Personalize a experiência de coleta. Você pode preencher e testar o envio em tempo real no painel à direita!
           </p>
         </div>
 
         {/* Share Link Pill */}
         <div className="flex items-center gap-2 w-full md:w-auto">
-          <div className="flex items-center gap-2 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 font-mono flex-1 md:flex-initial truncate">
-            <Globe className="w-3.5 h-3.5 text-orange-500 shrink-0" />
-            <span className="truncate">kudosdeck.app/c/{formConfig.publicSlug}</span>
+          <div className="flex items-center gap-2 px-3.5 py-1.5 bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-full text-xs text-stone-700 font-bold shadow-[1px_1px_0px_#18181b] flex-1 md:flex-initial truncate">
+            <Globe className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            <span className="truncate">/{formConfig.publicSlug}</span>
           </div>
           <button
             onClick={handleCopyLink}
-            className="inline-flex items-center gap-1.5 px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-semibold shadow-xs transition-all shrink-0"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#fde047] hover:bg-[#facc15] text-[#18181b] rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[1.5px_1.5px_0px_#18181b] transition-all shrink-0 active:translate-y-0.5"
           >
-            {copiedLink ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            <span>{copiedLink ? 'Copiado!' : 'Copiar'}</span>
+            {copiedLink ? <Check className="w-3.5 h-3.5 stroke-[2.5]" /> : <Copy className="w-3.5 h-3.5 stroke-[2.5]" />}
+            <span>{copiedLink ? 'Copiado!' : 'Copiar Link'}</span>
           </button>
         </div>
       </div>
 
       {/* 2-Column Split: Settings on Left, Interactive Live Form on Right */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         {/* Left Column: Form Configuration Controls (5 cols) */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-xs space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
-                <Sliders className="w-4 h-4 text-orange-600" />
-                Textos & Personalização
+        <div className="lg:col-span-5 space-y-4">
+          <div className="bg-white rounded-2xl p-5 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-200">
+              <h3 className="font-bold text-[#18181b] text-sm font-retro flex items-center gap-2">
+                <Sliders className="w-4 h-4 text-amber-600 stroke-[2.5]" />
+                <span>Textos & Customização</span>
               </h3>
-              <span className="text-xs text-slate-400">Tempo real</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#18181b] bg-[#a7f3d0] text-[#065f46]">
+                Tempo real
+              </span>
             </div>
 
             {/* Brand / Product Name */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Nome da Marca / Produto
+              <label className="block text-[10px] font-bold text-stone-700 uppercase tracking-wider mb-1">
+                Nome da Marca / Empresa
               </label>
               <input
                 type="text"
-                value={formConfig.brandName}
+                value={formConfig.brandName || ''}
                 onChange={(e) => setFormConfig({ ...formConfig, brandName: e.target.value })}
-                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium"
-                placeholder="Ex: Minha Startup"
+                className="w-full px-3 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                placeholder="Ex: Minha Empresa"
               />
             </div>
 
             {/* Form Title */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Título Principal
+              <label className="block text-[10px] font-bold text-stone-700 uppercase tracking-wider mb-1">
+                Título Principal do Formulário
               </label>
               <input
                 type="text"
-                value={formConfig.title}
+                value={formConfig.title || ''}
                 onChange={(e) => setFormConfig({ ...formConfig, title: e.target.value })}
-                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
-                placeholder="Ex: Como foi sua experiência?"
+                className="w-full px-3 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                placeholder="Ex: Deixe seu depoimento"
               />
             </div>
 
-            {/* Subtitle / Instructions */}
+            {/* Form Subtitle */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Subtítulo / Instrução
+              <label className="block text-[10px] font-bold text-stone-700 uppercase tracking-wider mb-1">
+                Subtítulo / Instruções
               </label>
               <textarea
                 rows={2}
-                value={formConfig.subtitle}
+                value={formConfig.subtitle || ''}
                 onChange={(e) => setFormConfig({ ...formConfig, subtitle: e.target.value })}
-                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all resize-none"
-                placeholder="Descreva brevemente como a avaliação ajuda sua equipe..."
+                className="w-full px-3 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                placeholder="Conte para nós como o produto ajudou você..."
               />
             </div>
 
-            {/* Button CTA text */}
+            {/* Button Text */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Texto do Botão de Ação
+              <label className="block text-[10px] font-bold text-stone-700 uppercase tracking-wider mb-1">
+                Texto do Botão de Envio
               </label>
               <input
                 type="text"
-                value={formConfig.buttonText}
+                value={formConfig.buttonText || ''}
                 onChange={(e) => setFormConfig({ ...formConfig, buttonText: e.target.value })}
-                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
-                placeholder="Ex: Enviar meu depoimento"
+                className="w-full px-3 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                placeholder="Ex: Enviar meu Depoimento"
               />
             </div>
 
-            {/* Thank you message */}
-            <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                Mensagem de Agradecimento (Sucesso)
+            {/* Thank You Message */}
+            <div className="pt-2 border-t border-stone-200">
+              <label className="block text-[10px] font-bold text-stone-700 uppercase tracking-wider mb-1">
+                Mensagem de Agradecimento
               </label>
               <input
                 type="text"
-                value={formConfig.thankYouMessage}
+                value={formConfig.thankYouTitle || ''}
+                onChange={(e) => setFormConfig({ ...formConfig, thankYouTitle: e.target.value })}
+                className="w-full px-3 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none mb-2"
+                placeholder="Título: Muito Obrigado!"
+              />
+              <textarea
+                rows={2}
+                value={formConfig.thankYouMessage || ''}
                 onChange={(e) => setFormConfig({ ...formConfig, thankYouMessage: e.target.value })}
-                className="w-full px-3.5 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
-                placeholder="Ex: Muito obrigado pela mensagem! 🎉"
+                className="w-full px-3 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                placeholder="Mensagem pós-envio..."
               />
             </div>
 
-            {/* Feature Toggles */}
-            <div className="pt-2 space-y-3">
-              <span className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                Configuração dos Campos
+            {/* Field Toggles */}
+            <div className="pt-2 border-t border-stone-200 space-y-2">
+              <span className="block text-[10px] font-bold text-stone-700 uppercase tracking-wider">
+                Campos Habilitados
               </span>
-              
-              <label className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-slate-100/70 border border-slate-200/80 cursor-pointer transition-colors">
-                <div className="flex items-center gap-2.5">
-                  <Star className="w-4 h-4 text-amber-500 fill-amber-400" />
-                  <span className="text-xs font-semibold text-slate-700">Coletar Avaliação de Estrelas (1-5)</span>
-                </div>
+              <div className="flex items-center justify-between p-2 rounded-xl bg-[#faf6ed] border border-[#18181b]">
+                <span className="text-xs font-bold text-[#18181b]">Avaliação com Estrelas (1-5)</span>
                 <input
                   type="checkbox"
-                  checked={formConfig.requireRating}
-                  onChange={(e) => setFormConfig({ ...formConfig, requireRating: e.target.checked })}
-                  className="rounded text-orange-600 focus:ring-orange-500 h-4 w-4"
+                  checked={!!formConfig.enableRating}
+                  onChange={(e) => setFormConfig({ ...formConfig, enableRating: e.target.checked })}
+                  className="w-4 h-4 accent-amber-500 rounded"
                 />
-              </label>
+              </div>
 
-              <label className="flex items-center justify-between p-3 rounded-xl bg-slate-50 hover:bg-slate-100/70 border border-slate-200/80 cursor-pointer transition-colors">
-                <div className="flex items-center gap-2.5">
-                  <ImageIcon className="w-4 h-4 text-orange-500" />
-                  <span className="text-xs font-semibold text-slate-700">Permitir Foto de Perfil URL</span>
-                </div>
+              <div className="flex items-center justify-between p-2 rounded-xl bg-[#faf6ed] border border-[#18181b]">
+                <span className="text-xs font-bold text-[#18181b]">Upload de Foto de Perfil</span>
                 <input
                   type="checkbox"
-                  checked={formConfig.allowAvatarUpload}
-                  onChange={(e) => setFormConfig({ ...formConfig, allowAvatarUpload: e.target.checked })}
-                  className="rounded text-orange-600 focus:ring-orange-500 h-4 w-4"
+                  checked={!!formConfig.enableAvatar}
+                  onChange={(e) => setFormConfig({ ...formConfig, enableAvatar: e.target.checked })}
+                  className="w-4 h-4 accent-amber-500 rounded"
                 />
-              </label>
+              </div>
             </div>
-          </div>
 
-          {/* Quick Tip Box */}
-          <div className="bg-orange-50/70 border border-orange-100 rounded-2xl p-4 text-orange-950 text-xs leading-relaxed flex items-start gap-3">
-            <Sparkles className="w-5 h-5 text-orange-600 shrink-0 mt-0.5" />
-            <div>
-              <span className="font-bold">Dica Pro de Conversão:</span> Todos os novos depoimentos enviados através deste formulário entram automaticamente no seu Dashboard como <strong className="text-amber-800">Pendentes</strong>. Você pode revisá-los antes de exibi-los no seu Wall of Love!
-            </div>
           </div>
         </div>
 
         {/* Right Column: Live Interactive Form Preview (7 cols) */}
         <div className="lg:col-span-7">
-          <div className="sticky top-24">
-            
-            {/* Window bar mockup */}
-            <div className="bg-slate-900 rounded-t-2xl px-4 py-3 flex items-center justify-between text-slate-400 text-xs">
+          <div className="bg-[#faf6ed] rounded-3xl p-6 border-[2.5px] border-[#18181b] shadow-[4px_4px_0px_#18181b] relative">
+            <div className="flex items-center justify-between pb-4 mb-4 border-b border-stone-200">
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-rose-500/80"></span>
-                <span className="w-3 h-3 rounded-full bg-amber-500/80"></span>
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-                <span className="ml-2 font-mono text-[11px] text-slate-300">
-                  kudosdeck.app/c/{formConfig.publicSlug}
-                </span>
+                <span className="w-3 h-3 rounded-full bg-red-400 border border-[#18181b]" />
+                <span className="w-3 h-3 rounded-full bg-amber-400 border border-[#18181b]" />
+                <span className="w-3 h-3 rounded-full bg-emerald-400 border border-[#18181b]" />
+                <span className="text-xs font-bold text-stone-600 font-retro ml-2">Preview Interativo do Cliente</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-300 bg-slate-800 px-2.5 py-1 rounded-md">
-                <Eye className="w-3.5 h-3.5 text-orange-400" />
-                <span>Preview Interativo</span>
-              </div>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#18181b] bg-[#fbcfe8] text-[#831843]">
+                Teste ao Vivo
+              </span>
             </div>
 
-            {/* Container */}
-            <div className="bg-slate-100/70 p-4 sm:p-8 rounded-b-2xl border-x border-b border-slate-200 shadow-xl">
-              
+            {/* Simulated Live Form Experience */}
+            <div className="bg-white rounded-2xl p-6 border-[1.5px] border-[#18181b] shadow-[3px_3px_0px_#18181b] max-w-md mx-auto">
               {submittedSuccess ? (
-                /* Success Screen */
-                <div className="bg-white rounded-2xl p-8 sm:p-12 text-center shadow-lg border border-slate-200/90 animate-in zoom-in-95 duration-300">
-                  <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm">
-                    <CheckCircle className="w-8 h-8" />
+                /* Success Screen in Preview */
+                <div className="py-8 text-center space-y-3">
+                  <div className="w-14 h-14 rounded-full bg-[#a7f3d0] border-[2px] border-[#18181b] flex items-center justify-center text-[#065f46] mx-auto shadow-[2px_2px_0px_#18181b]">
+                    <CheckCircle className="w-7 h-7 stroke-[2.5]" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
-                    Depoimento Enviado!
-                  </h3>
-                  <p className="text-slate-600 text-sm mt-2 max-w-md mx-auto">
+                  <h4 className="font-retro font-black text-xl text-[#18181b]">
+                    {formConfig.thankYouTitle}
+                  </h4>
+                  <p className="text-xs text-stone-600 font-medium">
                     {formConfig.thankYouMessage}
                   </p>
-                  <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 max-w-sm mx-auto">
-                    Status: <strong>Pendente de Moderação</strong> no seu Dashboard.
-                  </div>
-                  <div className="mt-8">
-                    <button
-                      onClick={handleResetTestForm}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600 hover:bg-orange-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-xs transition-all"
-                    >
-                      <RefreshCw className="w-4 h-4" />
-                      Enviar Outro Depoimento
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleResetPreview}
+                    className="mt-4 px-4 py-1.5 bg-[#fde047] text-[#18181b] text-xs font-bold rounded-full border-[1.5px] border-[#18181b] shadow-[1.5px_1.5px_0px_#18181b] hover:bg-[#facc15]"
+                  >
+                    Testar Novamente
+                  </button>
                 </div>
               ) : (
-                /* Form Preview */
-                <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-slate-200/80">
-                  
-                  {/* Form Header */}
-                  <div className="text-center max-w-lg mx-auto mb-8">
-                    <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-50 text-orange-700 border border-orange-100 mb-3">
-                      {formConfig.brandName}
-                    </span>
-                    <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-['Plus_Jakarta_Sans'] tracking-tight">
+                /* Form Fields in Preview */
+                <form onSubmit={handleTestSubmit} className="space-y-3.5 text-xs font-bold text-stone-800">
+                  <div className="text-center space-y-1 pb-2">
+                    <h3 className="font-retro font-black text-lg text-[#18181b]">
                       {formConfig.title}
-                    </h2>
-                    <p className="text-xs sm:text-sm text-slate-500 mt-2">
+                    </h3>
+                    <p className="text-[11px] text-stone-500 font-medium">
                       {formConfig.subtitle}
                     </p>
                   </div>
 
-                  {/* Form Inputs (Fields: Nome, Foto URL, Cargo e Depoimento) */}
-                  <form onSubmit={handleTestSubmit} className="space-y-5">
-                    
-                    {/* Star Rating Selector (if enabled) */}
-                    {formConfig.requireRating && (
-                      <div className="text-center pb-2">
-                        <label className="block text-xs font-bold text-slate-600 mb-2">
-                          Sua Avaliação
-                        </label>
-                        <div className="flex items-center justify-center gap-2">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <button
-                              type="button"
-                              key={star}
-                              onClick={() => setPreviewRating(star)}
-                              onMouseEnter={() => setHoverRating(star)}
-                              onMouseLeave={() => setHoverRating(0)}
-                              className="p-1 hover:scale-110 transition-transform focus:outline-none"
-                            >
-                              <Star 
-                                className={`w-7 h-7 ${
-                                  (hoverRating || previewRating) >= star 
-                                    ? 'text-amber-400 fill-amber-400' 
-                                    : 'text-slate-200 fill-slate-100'
-                                }`} 
-                              />
-                            </button>
-                          ))}
-                        </div>
-                        <span className="text-[11px] font-semibold text-slate-400 mt-1 block">
-                          {previewRating === 5 ? 'Excelente! ⭐⭐⭐⭐⭐' : `${previewRating} estrelas`}
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Field 1: Nome (Name) */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                        Seu Nome Completo <span className="text-rose-500">*</span>
-                      </label>
-                      <div className="relative">
-                        <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                        <input
-                          type="text"
-                          required
-                          value={previewName}
-                          onChange={(e) => setPreviewName(e.target.value)}
-                          placeholder="Ex: Carlos Eduardo"
-                          className="w-full pl-9 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium text-slate-800"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Field 2 & 3: Cargo e Empresa (Role and Company) */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                          Cargo / Função
-                        </label>
-                        <div className="relative">
-                          <Briefcase className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                          <input
-                            type="text"
-                            value={previewRole}
-                            onChange={(e) => setPreviewRole(e.target.value)}
-                            placeholder="Ex: Tech Lead"
-                            className="w-full pl-9 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-slate-800"
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                          Empresa
-                        </label>
-                        <input
-                          type="text"
-                          value={previewCompany}
-                          onChange={(e) => setPreviewCompany(e.target.value)}
-                          placeholder="Ex: Inova Soluções"
-                          className="w-full px-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-slate-800"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Field 4: Foto URL (Avatar URL) with Quick Selector & Thumbnail */}
-                    {formConfig.allowAvatarUpload && (
-                      <div>
-                        <div className="flex items-center justify-between mb-1.5">
-                          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                            URL da sua Foto de Perfil
-                          </label>
-                          <span className="text-[11px] text-slate-400">Opcional</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <div className="relative flex-1">
-                            <ImageIcon className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                            <input
-                              type="url"
-                              value={previewAvatar}
-                              onChange={(e) => setPreviewAvatar(e.target.value)}
-                              placeholder="https://exemplo.com/minha-foto.jpg"
-                              className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-mono text-slate-800"
+                  {/* Stars Rating */}
+                  {formConfig.enableRating && (
+                    <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-[#faf6ed] border border-[#18181b]">
+                      <span className="text-[9px] uppercase text-stone-500 mb-1 tracking-wider">
+                        Sua Avaliação
+                      </span>
+                      <div className="flex items-center gap-1">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <button
+                            type="button"
+                            key={s}
+                            onMouseEnter={() => setHoverRating(s)}
+                            onMouseLeave={() => setHoverRating(0)}
+                            onClick={() => setPreviewRating(s)}
+                            className="p-0.5 hover:scale-115 transition-transform"
+                          >
+                            <Star 
+                              className={`w-5 h-5 ${
+                                s <= (hoverRating || previewRating) 
+                                  ? 'text-amber-500 fill-amber-400 stroke-[#18181b]' 
+                                  : 'text-stone-200'
+                              }`} 
                             />
-                          </div>
-                          
-                          {/* Live Avatar Preview badge */}
-                          <div className="w-10 h-10 rounded-full border border-slate-200 bg-slate-100 flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
-                            {previewAvatar ? (
-                              <img 
-                                src={previewAvatar} 
-                                alt="Preview" 
-                                className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(previewName || 'User')}&background=ea580c&color=fff`;
-                                }} 
-                              />
-                            ) : (
-                              <User className="w-5 h-5 text-slate-400" />
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Quick avatar choices for testing */}
-                        <div className="flex items-center gap-2 mt-2">
-                          <span className="text-[10px] text-slate-400 uppercase font-semibold">Testar com foto:</span>
-                          {sampleAvatars.map((av, idx) => (
-                            <button
-                              key={idx}
-                              type="button"
-                              onClick={() => setPreviewAvatar(av.url)}
-                              className="w-6 h-6 rounded-full overflow-hidden border border-slate-300 hover:ring-2 hover:ring-orange-500 transition-all shrink-0"
-                              title={`Usar ${av.label}`}
-                            >
-                              <img src={av.url} alt={av.label} className="w-full h-full object-cover" />
-                            </button>
-                          ))}
-                        </div>
+                          </button>
+                        ))}
                       </div>
-                    )}
+                    </div>
+                  )}
 
-                    {/* Field 5: Depoimento (Testimonial Text) */}
+                  {/* Depoimento */}
+                  <div>
+                    <label className="block uppercase text-[10px] tracking-wider mb-1">
+                      Depoimento <span className="text-rose-500">*</span>
+                    </label>
+                    <textarea
+                      required
+                      rows={3}
+                      value={previewContent}
+                      onChange={(e) => setPreviewContent(e.target.value)}
+                      placeholder="Conte sua experiência..."
+                      className="w-full px-3 py-2 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                    />
+                  </div>
+
+                  {/* Nome */}
+                  <div>
+                    <label className="block uppercase text-[10px] tracking-wider mb-1">
+                      Seu Nome <span className="text-rose-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={previewName}
+                      onChange={(e) => setPreviewName(e.target.value)}
+                      placeholder="Ex: Beatriz Rocha"
+                      className="w-full px-3 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                    />
+                  </div>
+
+                  {/* Cargo & Empresa */}
+                  <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-                          Seu Depoimento <span className="text-rose-500">*</span>
-                        </label>
-                        <span className="text-[11px] text-slate-400 font-mono">
-                          {previewContent.length}/500
-                        </span>
-                      </div>
-                      <div className="relative">
-                        <textarea
-                          required
-                          rows={4}
-                          maxLength={500}
-                          value={previewContent}
-                          onChange={(e) => setPreviewContent(e.target.value)}
-                          placeholder="Conte em poucas palavras como este produto te ajudou, quais resultados alcançou ou o que mais gostou..."
-                          className="w-full px-3.5 py-3 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all resize-none leading-relaxed text-slate-800"
-                        />
+                      <label className="block uppercase text-[9px] tracking-wider mb-0.5">Cargo</label>
+                      <input
+                        type="text"
+                        value={previewRole}
+                        onChange={(e) => setPreviewRole(e.target.value)}
+                        placeholder="Ex: Designer"
+                        className="w-full px-2.5 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block uppercase text-[9px] tracking-wider mb-0.5">Empresa</label>
+                      <input
+                        type="text"
+                        value={previewCompany}
+                        onChange={(e) => setPreviewCompany(e.target.value)}
+                        placeholder="Ex: Estudio Beta"
+                        className="w-full px-2.5 py-1.5 text-xs font-medium bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-xl shadow-[1px_1px_0px_#18181b] outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Foto Presets */}
+                  {formConfig.enableAvatar && (
+                    <div>
+                      <label className="block uppercase text-[9px] tracking-wider mb-1">Foto de Perfil</label>
+                      <div className="flex items-center gap-1.5">
+                        {sampleAvatars.map((a, i) => (
+                          <button
+                            type="button"
+                            key={i}
+                            onClick={() => setPreviewAvatar(a.url)}
+                            className={`w-7 h-7 rounded-full border border-[#18181b] overflow-hidden hover:scale-105 transition-transform ${previewAvatar === a.url ? 'ring-2 ring-amber-500' : ''}`}
+                          >
+                            <img src={a.url} alt={a.label} className="w-full h-full object-cover" />
+                          </button>
+                        ))}
                       </div>
                     </div>
+                  )}
 
-                    {/* Submit Button */}
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        className="w-full py-3.5 px-4 bg-orange-600 hover:bg-orange-700 active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-md shadow-orange-600/25 transition-all flex items-center justify-center gap-2"
-                      >
-                        <Send className="w-4 h-4" />
-                        <span>{formConfig.buttonText}</span>
-                      </button>
-                    </div>
-
-                    <p className="text-[11px] text-center text-slate-400 mt-2">
-                      Ao enviar, você autoriza a exibição pública do seu depoimento no nosso mural.
-                    </p>
-                  </form>
-
-                </div>
+                  {/* Submit Test Button */}
+                  <button
+                    type="submit"
+                    className="w-full py-2.5 bg-[#fde047] hover:bg-[#facc15] text-[#18181b] font-black text-xs rounded-full border-[2px] border-[#18181b] shadow-[2.5px_2.5px_0px_#18181b] flex items-center justify-center gap-2 active:translate-y-0.5 transition-all mt-3"
+                  >
+                    <Send size={13} className="stroke-[2.5]" />
+                    <span>{formConfig.buttonText}</span>
+                  </button>
+                </form>
               )}
-
             </div>
+
           </div>
         </div>
 

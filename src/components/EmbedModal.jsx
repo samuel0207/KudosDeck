@@ -7,7 +7,7 @@ export default function EmbedModal({ isOpen, onClose, formConfig, onShowToast })
 
   if (!isOpen) return null;
 
-  const originUrl = typeof window !== 'undefined' ? window.location.origin : 'https://kudosdeck.app';
+  const originUrl = typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5174';
 
   const snippets = {
     iframe: `<iframe 
@@ -16,10 +16,10 @@ export default function EmbedModal({ isOpen, onClose, formConfig, onShowToast })
   height="700px" 
   frameborder="0" 
   scrolling="no"
-  style="border-radius: 16px; border: 1px solid #e2e8f0;">
+  style="border-radius: 24px; border: 2.5px solid #18181b; box-shadow: 4px 4px 0px #18181b;">
 </iframe>`,
-    script: `<!-- KudosDeck Wall of Love Widget -->
-<div id="kudosdeck-wall" data-slug="${formConfig.publicSlug}" data-theme="light"></div>
+    script: `<!-- KudosDeck Retro Wall of Love Widget -->
+<div id="kudosdeck-wall" data-slug="${formConfig.publicSlug}" data-theme="retro"></div>
 <script async src="https://cdn.kudosdeck.app/v1/widget.js"></script>`,
     react: `import { KudosWall } from '@kudosdeck/react';
 
@@ -29,7 +29,7 @@ export default function TestimonialsSection() {
       <KudosWall 
         slug="${formConfig.publicSlug}" 
         columns={3} 
-        theme="light" 
+        theme="retro" 
       />
     </section>
   );
@@ -39,94 +39,85 @@ export default function TestimonialsSection() {
   const handleCopy = () => {
     navigator.clipboard.writeText(snippets[activeType]);
     setCopied(true);
-    onShowToast({ message: "Código copiado para a área de transferência!", type: "success" });
+    onShowToast({ message: "Código copiado com sucesso!", type: "success" });
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-      <div className="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200/90 relative animate-in zoom-in-95">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/45 backdrop-blur-xs animate-in fade-in">
+      <div className="bg-[#faf6ed] rounded-3xl max-w-xl w-full p-6 shadow-[8px_8px_0px_#18181b] border-[2.5px] border-[#18181b] relative animate-in zoom-in-95">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div className="flex items-center justify-between pb-4 border-b border-stone-200">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-orange-50 text-orange-600">
-              <Code2 className="w-5 h-5" />
+            <div className="p-2 rounded-full bg-[#fef08a] border-[1.5px] border-[#18181b] text-[#18181b] shadow-[1px_1px_0px_#18181b]">
+              <Code2 className="w-5 h-5 stroke-[2.5]" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-lg font-['Plus_Jakarta_Sans']">
+              <h3 className="font-bold text-[#18181b] text-lg font-retro">
                 Código de Incorporação (Embed)
               </h3>
-              <p className="text-xs text-slate-500">
-                Cole em qualquer site: WordPress, Webflow, Shopify, Framer ou HTML
+              <p className="text-xs text-stone-600 font-medium">
+                Adicione o Wall of Love ao seu site, landing page ou loja.
               </p>
             </div>
           </div>
+
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+            className="w-8 h-8 rounded-full border-[1.5px] border-[#18181b] bg-white flex items-center justify-center text-[#18181b] hover:bg-stone-100 shadow-[1.5px_1.5px_0px_#18181b] transition-all"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Format Selector */}
-        <div className="flex items-center gap-2 mt-5 p-1 bg-slate-100 rounded-xl">
+        {/* Snippet Format Selector */}
+        <div className="flex items-center gap-2 my-4">
           <button
             onClick={() => setActiveType('iframe')}
-            className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-              activeType === 'iframe' ? 'bg-white text-orange-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold border-[1.5px] border-[#18181b] transition-all shadow-[1.5px_1.5px_0px_#18181b] ${
+              activeType === 'iframe'
+                ? 'bg-[#fef08a] translate-y-0.5 shadow-none'
+                : 'bg-white hover:-translate-y-0.5'
             }`}
           >
             iFrame Universal
           </button>
           <button
             onClick={() => setActiveType('script')}
-            className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-              activeType === 'script' ? 'bg-white text-orange-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold border-[1.5px] border-[#18181b] transition-all shadow-[1.5px_1.5px_0px_#18181b] ${
+              activeType === 'script'
+                ? 'bg-[#bae6fd] translate-y-0.5 shadow-none'
+                : 'bg-white hover:-translate-y-0.5'
             }`}
           >
             Script HTML
           </button>
           <button
             onClick={() => setActiveType('react')}
-            className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-              activeType === 'react' ? 'bg-white text-orange-700 shadow-xs' : 'text-slate-600 hover:text-slate-900'
+            className={`px-3.5 py-1.5 rounded-full text-xs font-bold border-[1.5px] border-[#18181b] transition-all shadow-[1.5px_1.5px_0px_#18181b] ${
+              activeType === 'react'
+                ? 'bg-[#a7f3d0] translate-y-0.5 shadow-none'
+                : 'bg-white hover:-translate-y-0.5'
             }`}
           >
-            React / Next.js
+            Componente React
           </button>
         </div>
 
         {/* Code Box */}
-        <div className="mt-4 relative">
-          <div className="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs overflow-x-auto border border-slate-800 leading-relaxed max-h-48">
-            <pre>{snippets[activeType]}</pre>
-          </div>
+        <div className="relative rounded-2xl bg-white border-[2px] border-[#18181b] p-4 font-mono text-xs text-stone-800 shadow-[3px_3px_0px_#18181b] overflow-x-auto">
+          <pre>{snippets[activeType]}</pre>
+        </div>
+
+        {/* Copy Button */}
+        <div className="mt-5 flex justify-end">
           <button
             onClick={handleCopy}
-            className="absolute top-2.5 right-2.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#fde047] hover:bg-[#facc15] text-[#18181b] font-bold text-xs rounded-full border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
-            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? 'Copiado!' : 'Copiar Código'}</span>
-          </button>
-        </div>
-
-        {/* Instructions */}
-        <div className="mt-5 p-3.5 bg-slate-50 border border-slate-200/80 rounded-xl text-xs text-slate-600 space-y-1">
-          <p className="font-semibold text-slate-800">Como funciona?</p>
-          <p>
-            O widget carrega instantaneamente os depoimentos aprovados em tempo real. Qualquer alteração que você fizer no KudosDeck é refletida automaticamente no seu site sem necessidade de republicação!
-          </p>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-6 flex justify-end">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors"
-          >
-            Fechar
+            {copied ? <Check className="w-4 h-4 stroke-[2.5]" /> : <Copy className="w-4 h-4 stroke-[2.5]" />}
+            <span>{copied ? 'Código Copiado!' : 'Copiar Snippet'}</span>
           </button>
         </div>
 

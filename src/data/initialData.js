@@ -110,9 +110,12 @@ export const initialFormConfig = {
   subtitle: "Sua opinião é fundamental para evoluirmos continuamente. Leva menos de 60 segundos.",
   brandName: "KudosDeck Cloud",
   buttonText: "Enviar meu depoimento",
+  thankYouTitle: "Muito Obrigado!",
   thankYouMessage: "Muito obrigado por compartilhar sua história com a gente! 🎉",
+  enableRating: true,
   requireRating: true,
-  primaryColor: "#ea580c",
+  primaryColor: "#f59e0b",
+  enableAvatar: true,
   allowAvatarUpload: true,
   publicSlug: "kudosdeck-demo",
 };
