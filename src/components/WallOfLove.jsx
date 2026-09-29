@@ -10,14 +10,16 @@ import {
   Columns3, 
   Columns2,
   Columns4,
-  MessageSquare
+  MessageSquare,
+  Share2
 } from 'lucide-react';
 
 export default function WallOfLove({ 
   testimonials, 
   formConfig, 
   onOpenEmbedModal,
-  onSwitchToDashboard 
+  onSwitchToDashboard,
+  onOpenPublicLink
 }) {
   // Widget customization settings
   const [theme, setTheme] = useState('light'); // 'light' | 'dark' | 'retro'
@@ -170,10 +172,20 @@ export default function WallOfLove({
             📅 Datas
           </button>
 
+          {/* Link de Coleta CTA */}
+          <button
+            onClick={onOpenPublicLink}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-white hover:bg-stone-50 text-[#18181b] rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[2px_2px_0px_#18181b] active:translate-x-0.5 active:translate-y-0.5 transition-all ml-auto xl:ml-0"
+            title="Copiar e compartilhar link de avaliação com clientes"
+          >
+            <Share2 className="w-3.5 h-3.5 text-amber-600 stroke-[2.5]" />
+            <span>Link de Coleta</span>
+          </button>
+
           {/* Get Embed Code CTA */}
           <button
             onClick={onOpenEmbedModal}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-[#f59e0b] hover:bg-[#d97706] text-[#18181b] rounded-full text-xs font-bold border-[2px] border-[#18181b] shadow-[2.5px_2.5px_0px_#18181b] active:translate-x-0.5 active:translate-y-0.5 transition-all ml-auto xl:ml-0"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#f59e0b] hover:bg-[#d97706] text-[#18181b] rounded-full text-xs font-bold border-[2px] border-[#18181b] shadow-[2.5px_2.5px_0px_#18181b] active:translate-x-0.5 active:translate-y-0.5 transition-all"
           >
             <Code className="w-4 h-4 stroke-[2.5]" />
             <span>Incorporar Widget</span>

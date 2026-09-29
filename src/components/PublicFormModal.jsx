@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Heart, Star, Send, CheckCircle, RefreshCw, Copy, Check } from 'lucide-react';
+import { X, Heart, Star, Send, CheckCircle, RefreshCw, Copy, Check, Share2, MessageCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitTestimonial, onShowToast }) {
@@ -93,6 +93,46 @@ export default function PublicFormModal({ isOpen, onClose, formConfig, onSubmitT
             >
               <X className="w-4 h-4" />
             </button>
+          </div>
+        </div>
+
+        {/* Share Banner with direct Copy & WhatsApp Share */}
+        <div className="mt-3 p-3 bg-[#fef08a] border-[1.5px] border-[#18181b] rounded-2xl shadow-[2px_2px_0px_#18181b] space-y-2">
+          <div className="flex items-center justify-between text-xs font-bold text-[#18181b]">
+            <span className="flex items-center gap-1.5 font-retro">
+              <Share2 className="w-3.5 h-3.5 text-amber-700" />
+              Link direto para receber avaliações:
+            </span>
+            <span className="text-[10px] text-amber-900 bg-white/80 px-2 py-0.5 rounded-full border border-[#18181b]">
+              Compartilhe com seus clientes
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              readOnly
+              value={`${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5174'}/#collect/${formConfig.publicSlug}`}
+              className="flex-1 px-3 py-1.5 text-xs font-mono bg-white border-[1.5px] border-[#18181b] rounded-xl select-all outline-none"
+            />
+            <button
+              onClick={copyUrl}
+              type="button"
+              className="px-3 py-1.5 bg-white hover:bg-stone-50 text-[#18181b] text-xs font-bold rounded-xl border-[1.5px] border-[#18181b] shadow-[1px_1px_0px_#18181b] flex items-center gap-1.5 shrink-0 transition-transform active:translate-y-0.5"
+            >
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" /> : <Copy className="w-3.5 h-3.5 stroke-[2.5]" />}
+              <span>{copied ? 'Copiado!' : 'Copiar'}</span>
+            </button>
+            <a
+              href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Olá! Adoraríamos receber sua avaliação sobre nossos serviços: ${(typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5174')}/#collect/${formConfig.publicSlug}`)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="px-3 py-1.5 bg-[#25D366] hover:bg-[#22c35e] text-white text-xs font-bold rounded-xl border-[1.5px] border-[#18181b] shadow-[1px_1px_0px_#18181b] flex items-center gap-1.5 shrink-0 transition-transform active:translate-y-0.5"
+              title="Compartilhar no WhatsApp"
+            >
+              <MessageCircle className="w-3.5 h-3.5 fill-white stroke-none" />
+              <span>WhatsApp</span>
+            </a>
           </div>
         </div>
 

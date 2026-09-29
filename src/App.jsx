@@ -17,7 +17,8 @@ import {
   RotateCcw, 
   Star, 
   TrendingUp, 
-  Sparkles
+  Sparkles,
+  Share2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -77,6 +78,18 @@ export default function App() {
       console.error("Failed to save formConfig", e);
     }
   }, [formConfig]);
+
+  // Auto-open public form modal if visiting #collect hash
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window !== 'undefined' && window.location.hash.startsWith('#collect')) {
+        setIsPublicModalOpen(true);
+      }
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   // Helper for displaying toast notification
   const showToast = ({ message, type = 'info' }) => {
@@ -238,6 +251,21 @@ export default function App() {
                 <span>Form Editor</span>
               </button>
 
+              {/* Link de Coleta (Compartilhar com Clientes) */}
+              <button
+                onClick={() => setIsPublicModalOpen(true)}
+                className="w-full px-4 py-2.5 text-[#18181b] hover:bg-[#ece6db] rounded-full flex items-center justify-between transition-colors text-left group"
+                title="Abrir e copiar o link público para enviar aos seus clientes"
+              >
+                <div className="flex items-center gap-3">
+                  <Share2 size={16} className="stroke-[2.2] text-amber-600 group-hover:scale-110 transition-transform" />
+                  <span>Link de Coleta</span>
+                </div>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#18181b] bg-[#fef08a] text-[#18181b] shadow-[1px_1px_0px_#18181b]">
+                  Público
+                </span>
+              </button>
+
               {/* Coletar Depoimento Action */}
               <button
                 onClick={() => setIsNewModalOpen(true)}
@@ -303,6 +331,7 @@ export default function App() {
               formConfig={formConfig}
               onOpenEmbedModal={() => setIsEmbedModalOpen(true)}
               onSwitchToDashboard={() => setActiveTab('dashboard')}
+              onOpenPublicLink={() => setIsPublicModalOpen(true)}
             />
           )}
 
@@ -322,6 +351,7 @@ export default function App() {
               setFormConfig={setFormConfig}
               onSubmitTestimonial={handleAddTestimonial}
               onShowToast={showToast}
+              onOpenPublicLink={() => setIsPublicModalOpen(true)}
             />
           )}
         </main>

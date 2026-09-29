@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
 import { 
   Send, 
   Star, 
   CheckCircle, 
   Copy, 
-  Settings2, 
   Sliders, 
   Check, 
-  Globe 
+  Globe,
+  ExternalLink
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -15,7 +14,8 @@ export default function FormEditor({
   formConfig, 
   setFormConfig, 
   onSubmitTestimonial,
-  onShowToast 
+  onShowToast,
+  onOpenPublicLink
 }) {
   // Local state for the interactive preview test submission
   const [previewName, setPreviewName] = useState('');
@@ -91,34 +91,48 @@ export default function FormEditor({
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       
-      {/* Header Info */}
-      <div className="bg-white rounded-2xl p-5 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="w-8 h-8 rounded-full bg-[#fef08a] border-[1.5px] border-[#18181b] flex items-center justify-center text-[#18181b] shadow-[1px_1px_0px_#18181b]">
-              <Settings2 className="w-4 h-4 stroke-[2.5]" />
+      {/* Prominent Share Link Banner */}
+      <div className="bg-[#fef08a] rounded-2xl p-4 sm:p-5 border-[2px] border-[#18181b] shadow-[3px_3px_0px_#18181b] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="space-y-1.5 flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-[#18181b] bg-white text-[#18181b] shadow-[1px_1px_0px_#18181b]">
+              🔗 Link Oficial de Coleta
             </span>
-            <h1 className="text-xl sm:text-2xl font-black text-[#18181b] tracking-tight font-retro">
-              Editor do Formulário de Coleta
-            </h1>
+            <span className="text-xs font-bold text-amber-950">Envie aos clientes para receber avaliações</span>
           </div>
-          <p className="text-xs text-stone-600 font-medium mt-1 max-w-2xl">
-            Personalize a experiência de coleta. Você pode preencher e testar o envio em tempo real no painel à direita!
-          </p>
+          <h2 className="text-base sm:text-lg font-black font-retro text-[#18181b]">
+            Link Público para Compartilhar
+          </h2>
+          <div className="flex items-center gap-1.5 text-xs text-stone-800 font-mono bg-white px-3 py-1.5 rounded-xl border border-[#18181b] shadow-[1px_1px_0px_#18181b] w-full max-w-xl truncate">
+            <Globe className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            <span className="font-semibold select-all truncate">
+              {typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5174'}/#collect/{formConfig.publicSlug}
+            </span>
+          </div>
         </div>
 
-        {/* Share Link Pill */}
-        <div className="flex items-center gap-2 w-full md:w-auto">
-          <div className="flex items-center gap-2 px-3.5 py-1.5 bg-[#faf6ed] border-[1.5px] border-[#18181b] rounded-full text-xs text-stone-700 font-bold shadow-[1px_1px_0px_#18181b] flex-1 md:flex-initial truncate">
-            <Globe className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-            <span className="truncate">/{formConfig.publicSlug}</span>
-          </div>
+        {/* Buttons: Copiar Link & Abrir Formulário */}
+        <div className="flex items-center gap-2.5 shrink-0 self-end md:self-center">
           <button
             onClick={handleCopyLink}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#fde047] hover:bg-[#facc15] text-[#18181b] rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[1.5px_1.5px_0px_#18181b] transition-all shrink-0 active:translate-y-0.5"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white hover:bg-stone-50 text-[#18181b] rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[2px_2px_0px_#18181b] transition-all active:translate-y-0.5"
           >
-            {copiedLink ? <Check className="w-3.5 h-3.5 stroke-[2.5]" /> : <Copy className="w-3.5 h-3.5 stroke-[2.5]" />}
-            <span>{copiedLink ? 'Copiado!' : 'Copiar Link'}</span>
+            {copiedLink ? <Check className="w-4 h-4 stroke-[2.5] text-emerald-600" /> : <Copy className="w-4 h-4 stroke-[2.5]" />}
+            <span>{copiedLink ? 'Link Copiado!' : 'Copiar Link'}</span>
+          </button>
+
+          <button
+            onClick={() => {
+              if (onOpenPublicLink) {
+                onOpenPublicLink();
+              } else {
+                window.location.hash = `#collect/${formConfig.publicSlug}`;
+              }
+            }}
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#18181b] hover:bg-stone-800 text-white rounded-full text-xs font-bold border-[1.5px] border-[#18181b] shadow-[2px_2px_0px_#18181b] transition-all active:translate-y-0.5"
+          >
+            <ExternalLink className="w-4 h-4 stroke-[2.5]" />
+            <span>Abrir Formulário</span>
           </button>
         </div>
       </div>
